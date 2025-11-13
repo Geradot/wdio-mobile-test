@@ -6,7 +6,7 @@ class Page {
   /**
    * Swipe from right to left (horizontal)
    */
-  async swipeLeft(startX = 800, endX = 300, y = 1500, duration = 500) {
+  async swipeLeft(startX = 800, endX = 300, y = 1500, duration = 600) {
     await driver.performActions([
       {
         type: "pointer",
@@ -15,7 +15,7 @@ class Page {
         actions: [
           { type: "pointerMove", duration: 0, x: startX, y: y },
           { type: "pointerDown", button: 0 },
-          { type: "pause", duration: 200 },
+          { type: "pause", duration: 100 },
           { type: "pointerMove", duration: duration, x: endX, y: y },
           { type: "pointerUp", button: 0 },
         ],
@@ -27,7 +27,7 @@ class Page {
   /**
    * Swipe from left to right (horizontal)
    */
-  async swipeRight(startX = 300, endX = 800, y = 1500, duration = 500) {
+  async swipeRight(startX = 300, endX = 800, y = 1500, duration = 600) {
     await driver.performActions([
       {
         type: "pointer",
@@ -36,7 +36,7 @@ class Page {
         actions: [
           { type: "pointerMove", duration: 0, x: startX, y: y },
           { type: "pointerDown", button: 0 },
-          { type: "pause", duration: 200 },
+          { type: "pause", duration: 100 },
           { type: "pointerMove", duration: duration, x: endX, y: y },
           { type: "pointerUp", button: 0 },
         ],
@@ -139,14 +139,14 @@ class Page {
 
       // For Android: check bounds before and after small swipe
       const boundsBefore = await scrollableElement.getAttribute("bounds");
-      
+
       // Perform tiny swipe to test
       if (direction === "vertical") {
         await this.swipeUp(500, 1500, 1400, 100);
       } else {
         await this.swipeLeft(700, 600, 1500, 100);
       }
-      
+
       await driver.pause(300);
       const boundsAfter = await scrollableElement.getAttribute("bounds");
 
@@ -167,7 +167,7 @@ class Page {
     while (!atEdge && attempts < maxAttempts) {
       atEdge = await this.isSwipeAtEdge(swipeFn);
       attempts++;
-      
+
       if (atEdge) {
         break;
       }
@@ -186,7 +186,7 @@ class Page {
     while (!atEdge && attempts < maxAttempts) {
       atEdge = await this.isSwipeAtEdgeBySource(swipeFn);
       attempts++;
-      
+
       if (atEdge) {
         break;
       }
