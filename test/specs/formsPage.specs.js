@@ -1,5 +1,5 @@
+import { faker } from "@faker-js/faker";
 import formsPage from "../pageobjects/FormsPage.js";
-import { step } from "@wdio/allure-reporter";
 
 describe("Forms Page", () => {
   beforeEach(async () => {
@@ -7,7 +7,7 @@ describe("Forms Page", () => {
   });
 
   it("should input text and verify the result", async () => {
-    const testText = "someRandom a123";
+    const testText = faker.lorem.words(3);
     await formsPage.inputText(testText);
     await expect(formsPage.inputTextResult).toHaveText(testText);
   });
@@ -15,7 +15,7 @@ describe("Forms Page", () => {
   it("should toggle the switch and verify the state", async () => {
     await formsPage.toggleSwitch();
     const switchState = await formsPage.getSwitchState();
-    expect(switchState).toBeTruthy();
+    await expect(switchState).toBeTruthy();
   });
 
   it("should select an item from the dropdown and verify the selection", async () => {
