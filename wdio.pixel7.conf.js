@@ -12,8 +12,8 @@ export const config = {
       "bstack:options": {
         userName: process.env.BROWSERSTACK_USER,
         accessKey: process.env.BROWSERSTACK_KEY,
-        deviceName: "Samsung Galaxy S22 Ultra",
-        platformVersion: "12.0",
+        deviceName: "Google Pixel 7 Pro",
+        platformVersion: "13.0",
         platformName: "android",
         automationName: "UiAutomator2",
         app: process.env.BROWSERSTACK_APP,
