@@ -1,5 +1,6 @@
 import swipePage from "../pageobjects/SwipePage.js";
 import { step } from "@wdio/allure-reporter";
+import { restartAppAfterEachTest } from "../helpers/utils.js";
 
 describe("Swipe Page", () => {
   beforeEach(async () => {
@@ -7,15 +8,7 @@ describe("Swipe Page", () => {
   });
 
   afterEach(async function () {
-    // Skip restart after the last test
-    const currentTest = this.currentTest;
-    const allTests = this.test.parent.tests;
-    const isLastTest = allTests[allTests.length - 1] === currentTest;
-
-    if (!isLastTest) {
-      await driver.terminateApp("com.wdiodemoapp");
-      await driver.activateApp("com.wdiodemoapp");
-    }
+    await restartAppAfterEachTest(this);
   });
 
   it("horizontal swipe should work correctly", async () => {
