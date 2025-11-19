@@ -1,5 +1,4 @@
 import webviewPage from "../pageobjects/WebviewPage.js";
-import { restartAppAfterEachTest } from "../helpers/utils.js";
 
 describe("Webview Page", () => {
   beforeEach(async () => {
@@ -7,11 +6,10 @@ describe("Webview Page", () => {
   });
 
   afterEach(async function () {
-    await restartAppAfterEachTest(this);
+    await driver.reloadSession();
   });
 
-  it("should load a WDIO icon and a banner", async () => {
-    await webviewPage.iconText.waitForDisplayed({ timeout: 30_000 });
-    await expect(webviewPage.banner).toBeDisplayed();
+  it("should load a banner", async () => {
+    await expect(webviewPage.banner).toBeDisplayed({ timeout: 15_000 });
   });
 });

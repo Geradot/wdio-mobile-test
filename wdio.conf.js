@@ -1,39 +1,40 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export const config = {
-  user: process.env.BROWSERSTACK_USER,
-  key: process.env.BROWSERSTACK_KEY,
+  user: process.env.BROWSERSTACK_USERNAME,
+  key: process.env.BROWSERSTACK_ACCESS_KEY,
+  specs: ["./test/specs/**/*.js"],
   hostname: "hub.browserstack.com",
-  specs: ["./test/specs/**/*.specs.js"],
-  exclude: [],
-  maxInstances: 10,
-  capabilities: [
-    {
-      "bstack:options": {
-        userName: process.env.BROWSERSTACK_USER,
-        accessKey: process.env.BROWSERSTACK_KEY,
-        deviceName: "Samsung Galaxy S22 Ultra",
-        platformVersion: "12.0",
-        platformName: "android",
-        automationName: "UiAutomator2",
-        app: process.env.BROWSERSTACK_APP,
-        buildName: `Build ${process.env.BUILD_NUMBER || new Date().getTime()}`,
-      },
-    },
-  ],
-  logLevel: "info",
-  bail: 0,
-  waitforTimeout: 10000,
-  connectionRetryTimeout: 120000,
-  connectionRetryCount: 3,
   services: [
     [
       "browserstack",
       {
+        app: process.env.BROWSERSTACK_APP,
         browserstackLocal: false,
+        accessibility: false,
+        testObservabilityOptions: {
+          buildName: process.env.BUILD_NUMBER
+            ? `Build ${process.env.BUILD_NUMBER}`
+            : "local-build",
+          projectName: "WDIO Mobile Project",
+          buildTag: "SampleTag",
+        },
       },
     ],
   ],
+  capabilities: [],
+
+  commonCapabilities: {
+    "bstack:options": {
+      debug: true,
+      networkLogs: true,
+      appiumLogs: true,
+      deviceLogs: true,
+    },
+  },
+
+  maxInstances: 10,
+  logLevel: "info",
   framework: "mocha",
   reporters: ["spec", ["allure", { outputDir: "allure-results" }]],
   mochaOpts: {

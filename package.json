@@ -14,14 +14,21 @@
     "dotenv": "^17.2.3"
   },
   "scripts": {
-    "test": "wdio run ./wdio.conf.js",
-    "test:formsPage": "wdio run ./wdio.conf.js --spec formsPage.specs.js",
-    "test:signUpTab": "wdio run ./wdio.conf.js --spec signUpTab.specs.js",
-    "test:loginTab": "wdio run ./wdio.conf.js --spec loginTab.specs.js",
-    "test:dragPage": "wdio run ./wdio.conf.js --spec dragPage.specs.js",
-    "test:webviewPage": "wdio run ./wdio.conf.js --spec webviewPage.specs.js",
-    "test:swipePage": "wdio run ./wdio.conf.js --spec swipePage.specs.js",
-    "report": "allure generate allure-results --clean && allure open",
-    "wdio": "wdio run ./wdio.conf.js"
+    "test": "wdio run ./wdio.s22.conf.js",
+    "test:pixel": "wdio run ./wdio.pixel7.conf.js",
+    "test:local": "wdio run ./wdio.local.conf.js",
+    "test:formsPage": "wdio run ./wdio.s22.conf.js --spec formsPage.specs.js",
+    "test:local:formsPage": "wdio run ./wdio.local.conf.js --spec formsPage.specs.js",
+    "test:signUpTab": "wdio run ./wdio.s22.conf.js --spec signUpTab.specs.js",
+    "test:local:signUpTab": "wdio run ./wdio.local.conf.js --spec signUpTab.specs.js",
+    "test:loginTab": "wdio run ./wdio.s22.conf.js --spec loginTab.specs.js",
+    "test:local:loginTab": "wdio run ./wdio.local.conf.js --spec loginTab.specs.js",
+    "test:dragPage": "wdio run ./wdio.s22.conf.js --spec dragPage.specs.js",
+    "test:local:dragPage": "wdio run ./wdio.local.conf.js --spec dragPage.specs.js",
+    "test:webviewPage": "wdio run ./wdio.s22.conf.js --spec webviewPage.specs.js",
+    "test:local:webviewPage": "wdio run ./wdio.local.conf.js --spec webviewPage.specs.js",
+    "test:swipePage": "wdio run ./wdio.s22.conf.js --spec swipePage.specs.js",
+    "test:local:swipePage": "wdio run ./wdio.local.conf.js --spec swipePage.specs.js",
+    "report": "allure generate allure-results --clean && allure open"
   }
 }

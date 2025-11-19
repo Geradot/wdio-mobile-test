@@ -1,5 +1,4 @@
 import loginPage from "../../pageobjects/LoginPage.js";
-import { restartAppAfterEachTest } from "../../helpers/utils.js";
 
 describe("Login Page | Sign Up Tab", () => {
   beforeEach(async () => {
@@ -8,7 +7,7 @@ describe("Login Page | Sign Up Tab", () => {
   });
 
   afterEach(async function () {
-    await restartAppAfterEachTest(this);
+    await driver.reloadSession();
   });
 
   it("should register a new account successfully with valid credentials", async () => {

@@ -3,3 +3,5 @@ allure-results
 allure-report
 .env
 .vscode
+wdio.local.conf.js
+logs

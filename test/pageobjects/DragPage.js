@@ -9,7 +9,9 @@ class DragPage extends Page {
   }
 
   async open() {
-    return super.open(this.dragTab);
+    const tab = await this.dragTab;
+    await tab.waitForDisplayed({ timeout: 15_000 });
+    await super.open(this.dragTab);
   }
 
   get resetButton() {
@@ -58,16 +60,43 @@ class DragPage extends Page {
     return elements;
   }
 
-  /**
-   * Drag element to target using element-based Appium method
-   * @param {string} fromPosition - Source position
-   * @param {string} toPosition - Target position
-   */
-  async dragAndDropByElement(fromPosition, toPosition = fromPosition) {
+  async dragAndDropByCoords(fromPosition, toPosition = fromPosition) {
     const dragElement = await this.getDragElement(fromPosition);
+    await dragElement.waitForDisplayed({ timeout: 5000 });
+
     const dropTarget = await this.getDropTarget(toPosition);
 
-    await dragElement.dragAndDrop(dropTarget);
+    const rect = await driver.getElementRect(dropTarget.elementId);
+    const centerX = rect.x + rect.width / 2;
+    const centerY = rect.y + rect.height / 2;
+
+    await driver.performActions([
+      {
+        type: "pointer",
+        id: "finger",
+        parameters: { pointerType: "touch" },
+        actions: [
+          {
+            type: "pointerMove",
+            origin: dragElement.elementId,
+            x: 0,
+            y: 0,
+            duration: 0,
+          },
+          { type: "pointerDown", button: 0 },
+          { type: "pause", duration: 150 },
+          {
+            type: "pointerMove",
+            origin: "viewport",
+            x: centerX,
+            y: centerY,
+            duration: 500,
+          },
+          { type: "pause", duration: 150 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
   }
 
   /**
@@ -78,8 +107,8 @@ class DragPage extends Page {
   async dragMultiple(moves) {
     for (const move of moves) {
       if (typeof move === "object")
-        await this.dragAndDropByElement(move.from, move.to);
-      else await this.dragAndDropByElement(move);
+        await this.dragAndDropByCoords(move.from, move.to);
+      else await this.dragAndDropByCoords(move);
     }
   }
 

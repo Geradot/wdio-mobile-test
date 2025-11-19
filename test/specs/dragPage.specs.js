@@ -1,5 +1,4 @@
 import dragPage from "../pageobjects/DragPage.js";
-import { restartAppAfterEachTest } from "../helpers/utils.js";
 
 describe("Drag Page", () => {
   const elements = ["l1", "l2", "l3", "c1", "c2", "c3", "r1", "r2", "r3"];
@@ -9,14 +8,15 @@ describe("Drag Page", () => {
     await dragPage.open();
   });
 
-  afterEach(async function () {
-    await restartAppAfterEachTest(this);
+  afterEach(async () => {
+    await driver.reloadSession();
   });
 
   it(`should successfully drag an element to correct place`, async () => {
+    // Pick a random element to drag
     element = elements[Math.floor(Math.random() * elements.length)];
 
-    await dragPage.dragAndDropByElement(element);
+    await dragPage.dragAndDropByCoords(element);
 
     const isInDropZone = await dragPage.isInCorrectPosition(element);
     await expect(isInDropZone).toBe(true);
@@ -31,13 +31,14 @@ describe("Drag Page", () => {
       targetPlace = elements[Math.floor(Math.random() * elements.length)];
     }
 
-    await dragPage.dragAndDropByElement(dragElement, targetPlace);
+    await dragPage.dragAndDropByCoords(dragElement, targetPlace);
 
     const stillAtSource = await dragPage.isDragElementPresent(dragElement);
     await expect(stillAtSource).toBe(true);
   });
 
   it("should successfully drag all elements into correct places", async () => {
+    // Shuffle elements array to drag in random order
     await dragPage.dragMultiple([...elements].sort(() => Math.random() - 0.5));
 
     await expect(dragPage.congratsMsg).toBeDisplayed();
@@ -49,13 +50,14 @@ describe("Drag Page", () => {
   });
 
   it("should successfully reset after dragging an element", async () => {
+    // Pick a random element to drag
     element = elements[Math.floor(Math.random() * elements.length)];
 
     await expect(await dragPage.getAllDragElements()).toHaveLength(
       elements.length
     );
 
-    await dragPage.dragAndDropByElement(element);
+    await dragPage.dragAndDropByCoords(element);
     await expect(await dragPage.getAllDragElements()).toHaveLength(
       elements.length - 1
     );

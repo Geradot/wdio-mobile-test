@@ -21,8 +21,7 @@ class SwipePage extends Page {
 
   async open() {
     await super.open(this.swipeTab);
-    // Wait for the Swipe page to load
-    await this.horizontalScrollView.waitForDisplayed({ timeout: 5000 });
+    await this.horizontalScrollView.waitForDisplayed({ timeout: 15_000 });
   }
 
   async getDisplayedCards() {
@@ -46,34 +45,6 @@ class SwipePage extends Page {
    */
   async swipeCardsRight() {
     await super.swipeRight(300, 800, 1500, 500);
-  }
-
-  /**
-   * Check if cards reached left edge (using screenshot comparison)
-   */
-  async isAtLeftEdge() {
-    return await this.isSwipeAtEdge(() => this.swipeCardsLeft());
-  }
-
-  /**
-   * Check if cards reached right edge (using screenshot comparison)
-   */
-  async isAtRightEdge() {
-    return await this.isSwipeAtEdge(() => this.swipeCardsRight());
-  }
-
-  /**
-   * Swipe all the way to the left edge
-   */
-  async swipeToLeftEdge(maxAttempts = 10) {
-    return await this.swipeUntilEdge(() => this.swipeCardsLeft(), maxAttempts);
-  }
-
-  /**
-   * Swipe all the way to the right edge
-   */
-  async swipeToRightEdge(maxAttempts = 10) {
-    return await this.swipeUntilEdge(() => this.swipeCardsRight(), maxAttempts);
   }
 }
 
