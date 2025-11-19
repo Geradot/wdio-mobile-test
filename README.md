@@ -58,3 +58,29 @@ Generate test report and open it in a new browser tab:
 ```bash
 npm run report
 ```
+
+## CI/CD with GitHub Actions
+
+This repository includes a GitHub Actions workflow that automatically:
+
+1. Runs tests on push or pull request to main/master branches
+2. Generates an Allure report from test results
+3. Deploys the report to GitHub Pages
+
+### Setup Instructions
+
+1. **Configure GitHub Secrets**: Add the following secrets to your repository settings:
+   - `BROWSERSTACK_USERNAME` - Your BrowserStack username
+   - `BROWSERSTACK_ACCESS_KEY` - Your BrowserStack access key
+   - `BROWSERSTACK_APP` - Your BrowserStack app URL
+
+2. **Enable GitHub Pages**:
+   - Go to repository Settings → Pages
+   - Under "Source", select "GitHub Actions"
+
+3. **Trigger the Workflow**:
+   - Push to main/master branch, or
+   - Create a pull request, or
+   - Manually trigger from Actions tab using "Run workflow"
+
+The Allure report will be available at: `https://<username>.github.io/<repository-name>/`
