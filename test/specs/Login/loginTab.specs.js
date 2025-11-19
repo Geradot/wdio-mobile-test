@@ -1,4 +1,5 @@
 import loginPage from "../../pageobjects/LoginPage.js";
+import { restartAppAfterEachTest } from "../../helpers/utils.js";
 
 describe("Login Page | Login Tab", () => {
   beforeEach(async () => {
@@ -6,7 +7,7 @@ describe("Login Page | Login Tab", () => {
   });
 
   afterEach(async function () {
-    await driver.reloadSession();
+    await restartAppAfterEachTest(this);
   });
 
   it("should log in successfully with valid credentials", async () => {

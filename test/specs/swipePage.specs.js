@@ -1,13 +1,14 @@
 import swipePage from "../pageobjects/SwipePage.js";
 import { step } from "@wdio/allure-reporter";
+import { restartAppAfterEachTest } from "../helpers/utils.js";
 
 describe("Swipe Page", () => {
   beforeEach(async () => {
     await swipePage.open();
   });
 
-  afterEach(async () => {
-    await driver.reloadSession();
+  afterEach(async function () {
+    await restartAppAfterEachTest(this);
   });
 
   it("horizontal swipe should work correctly", async () => {

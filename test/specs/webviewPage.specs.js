@@ -5,10 +5,6 @@ describe("Webview Page", () => {
     await webviewPage.open();
   });
 
-  afterEach(async function () {
-    await driver.reloadSession();
-  });
-
   it("should load a banner", async () => {
     await expect(webviewPage.banner).toBeDisplayed({ timeout: 15_000 });
   });

@@ -38,6 +38,9 @@ class Page {
   }
 
   async swipeUp(x = 500, startY = 1800, endY = 600, duration = 500) {
+    x = (await driver.getWindowSize()).width / 2;
+    startY = (await driver.getWindowSize()).height * 0.8;
+    endY = (await driver.getWindowSize()).height * 0.2;
     await driver.performActions([
       {
         type: "pointer",
@@ -55,6 +58,9 @@ class Page {
   }
 
   async swipeDown(x = 500, startY = 600, endY = 1800, duration = 500) {
+    x = (await driver.getWindowSize()).width / 2;
+    startY = (await driver.getWindowSize()).height * 0.2;
+    endY = (await driver.getWindowSize()).height * 0.8;
     await driver.performActions([
       {
         type: "pointer",
@@ -69,6 +75,31 @@ class Page {
         ],
       },
     ]);
+  }
+
+  async scrollDown(times = 1) {
+    for (let i = 0; i < times; i++) {
+      try {
+        await driver.execute("mobile: swipe", { direction: "up" });
+      } catch (err) {
+        console.warn("mobile: swipe don't, try dragFromToForDuration", err);
+
+        const { width, height } = await driver.getWindowSize();
+        const startX = width / 2;
+        const startY = height * 0.8;
+        const endY = height * 0.3;
+
+        await driver.execute("mobile: dragFromToForDuration", {
+          duration: 0.5,
+          fromX: startX,
+          fromY: startY,
+          toX: startX,
+          toY: endY,
+        });
+      }
+
+      await driver.pause(500);
+    }
   }
 
   /**

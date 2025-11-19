@@ -1,4 +1,5 @@
 import dragPage from "../pageobjects/DragPage.js";
+import { restartAppAfterEachTest } from "../helpers/utils.js";
 
 describe("Drag Page", () => {
   const elements = ["l1", "l2", "l3", "c1", "c2", "c3", "r1", "r2", "r3"];
@@ -8,8 +9,8 @@ describe("Drag Page", () => {
     await dragPage.open();
   });
 
-  afterEach(async () => {
-    await driver.reloadSession();
+  afterEach(async function () {
+    await restartAppAfterEachTest(this);
   });
 
   it(`should successfully drag an element to correct place`, async () => {
