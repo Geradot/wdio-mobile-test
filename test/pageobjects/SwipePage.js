@@ -32,20 +32,6 @@ class SwipePage extends Page {
     const cards = await this.allCards;
     return cards.length;
   }
-
-  /**
-   * Swipe cards left - uses parent method with page-specific coordinates
-   */
-  async swipeCardsLeft() {
-    await super.swipeLeft(800, 300, 1500, 500);
-  }
-
-  /**
-   * Swipe cards right - uses parent method with page-specific coordinates
-   */
-  async swipeCardsRight() {
-    await super.swipeRight(300, 800, 1500, 500);
-  }
 }
 
 export default new SwipePage();

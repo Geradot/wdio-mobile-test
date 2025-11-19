@@ -16,7 +16,7 @@ describe("Swipe Page", () => {
     const CARDS_ON_EDGE = 2;
 
     await step("Swipe left on 1 card", async () => {
-      await swipePage.swipeCardsLeft();
+      await swipePage.swipeLeft();
       await step(`${CARDS_IN_MIDDLE} cards after swiping left`, async () => {
         await expect((await swipePage.getDisplayedCards()).length).toBe(
           CARDS_IN_MIDDLE
@@ -25,7 +25,7 @@ describe("Swipe Page", () => {
     });
 
     await step("Swipe right on 1 card", async () => {
-      await swipePage.swipeCardsRight();
+      await swipePage.swipeRight();
       await step(`${CARDS_ON_EDGE} cards after swiping right`, async () => {
         await expect((await swipePage.getDisplayedCards()).length).toBe(
           CARDS_ON_EDGE
